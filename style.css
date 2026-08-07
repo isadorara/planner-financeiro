@@ -6,7 +6,7 @@ body {
 
 .side_menu {
     height: 100%; 
-    width: 180px;
+    width: 160px;
     position: fixed; 
     z-index: 1; 
     top: 0;
@@ -23,11 +23,34 @@ body {
     border: none;
     padding: 0;
     margin: 0;
-    font-size: medium;
+    font-size: 18px;
     font-weight: bold;
     color: #666161;
+    margin-bottom: 15px;
 }
 
 .bt_side_menu:hover{
     color: #403B3B;
+}
+
+.main {
+    margin-left: 174px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.area_upload {
+    background: none;
+    width: 95%;
+    height: 60px;
+    border-radius: 50px;
+    border: 2px solid #666161;
+    color: #666161;
+    vertical-align: middle;
+}
+
+.area_upload a {
+    font-size: larger;
 }
