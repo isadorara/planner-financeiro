@@ -1,6 +1,6 @@
 <html>
     <head>
-        <!--<link rel="stylesheet" href="style.css">--> 
+        <link rel="stylesheet" href="style.css">
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
@@ -26,15 +26,56 @@
         
         <!--Pagina principal-->
         <div class="main">
+            <!--Área de upload de csv-->
             <div class="area_upload">
                 <i class="fa-solid fa-plus"></i>
                 <a>Clique para escolher ou arraste o arquivo aqui</a>
                 <!--Upload de arquivo-->
                 <input type="file" id="fileInput" accept=".csv,text/csv">
             </div>
+            <!--Área de input do usuário-->
+            <div class="area_input">
+                <label for="input_saida">Saída:</label>
+                <input type="text" id="input_saida" placeholder="Saída">
+
+                <label for="input_valor">Valor:</label>
+                <input type="number" id="input_valor" placeholder="Valor">
+
+                <label for="input_categoria">Categoria:</label>
+                <select id="input_categoria">
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Moradia">Moradia</option>
+                    <option value="Assinatura">Assinatura</option>
+                    <option value="Outros">Outros</option>
+                </select>
+
+                <label for="input_data">Data:</label>
+                <input type="date" id="input_data" placeholder="Data">
+
+                <button type="submit" onclick="cadastrarSaida()">Adicionar</button>
+            </div>
             <div class="total">
                 <h2 id="total">Total</h2>
                 <h3 id="val_total" class="val_total"></h3>
+            </div>            
+            <!--Área de tabela-->
+            <div class="area_table">
+                <table id="tabela" class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Saída</th>
+                            <th>Valor</th>
+                            <th>Categoria</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!--Conteudo da tabela-->
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>

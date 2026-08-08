@@ -51,6 +51,26 @@ body {
     vertical-align: middle;
 }
 
-.area_upload a {
-    font-size: larger;
+.area_input {
+    margin-top: 20px;
+    display: flexbox;
+}
+
+input {
+    border-radius: 30px;
+}
+
+.area_table {
+    width: 95%;
+    border: 2px solid;
+    border-color: #403B3B;
+    border-radius: 22px;
+}
+
+.tabela {
+    display: flexbox;
+    margin: auto;
+    font-family: 'Inter';
+    font: 32px;
+    padding: auto 300px;
 }
