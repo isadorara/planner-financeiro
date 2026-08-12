@@ -1,23 +1,28 @@
 {
-  "name": "planner_financeiro",
+  "name": "planner-financeiro",
   "version": "1.0.0",
   "description": "Creates financial reports based on csv files or user input",
-  "homepage": "https://github.com/isadorara/Planner_Financeiro#readme",
+  "homepage": "https://github.com/isadorara/planner-financeiro#readme",
   "bugs": {
-    "url": "https://github.com/isadorara/Planner_Financeiro/issues"
+    "url": "https://github.com/isadorara/planner-financeiro/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/isadorara/Planner_Financeiro.git"
+    "url": "git+https://github.com/isadorara/planner-financeiro.git"
   },
   "license": "ISC",
   "author": "Isadora Conceição Araújo",
-  "type": "commonjs",
+  "type": "module",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "",
+    "dev": "vite"
   },
+  "keywords": [],
   "dependencies": {
-    "csv-parser": "^3.2.1"
+    "papaparse": "^5.5.4"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
   }
 }

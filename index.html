@@ -32,6 +32,7 @@
                 <a>Clique para escolher ou arraste o arquivo aqui</a>
                 <!--Upload de arquivo-->
                 <input type="file" id="fileInput" accept=".csv,text/csv">
+                <button type="submit" id="fileButton" >Enviar</button>
             </div>
             <!--Área de input do usuário-->
             <div class="area_input">
@@ -55,7 +56,7 @@
                 <label for="input_data">Data:</label>
                 <input type="date" id="input_data" placeholder="Data">
 
-                <button type="submit" onclick="cadastrarSaida()">Adicionar</button>
+                <button type="submit" id="inputButton">Adicionar</button>
             </div>
             <div class="total">
                 <h2 id="total">Total</h2>
@@ -79,5 +80,5 @@
             </div>
         </div>
     </body>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </html>
