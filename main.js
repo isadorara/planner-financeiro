@@ -11,6 +11,7 @@ function preencherTabela() {
 
     Papa.parse(file, {
         header: true,
+        dynamicTyping: true,
         complete: (results) => {
             console.log(results.data);
             const dados = results.data;
@@ -20,13 +21,23 @@ function preencherTabela() {
                     <tr>
                         <td>${row.title}</td>
                         <td>R$${row.amount}</td>
-                        <td></td>
+                        <td>
+                            <select id="input_categoria">
+                                <option value="Alimentação">Alimentação</option>
+                                <option value="Transporte">Transporte</option>
+                                <option value="Saúde">Saúde</option>
+                                <option value="Lazer">Lazer</option>
+                                <option value="Moradia">Moradia</option>
+                                <option value="Assinatura">Assinatura</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </td>
                         <td>${row.date}</td>
                     </tr>
                 `;
 
-            console.log('Saída cadastrada!');
-            tabela.insertAdjacentHTML('beforeend', novaLinha);
+                console.log('Saída cadastrada!');
+                tabela.insertAdjacentHTML('beforeend', novaLinha);
             }));
         }
     });

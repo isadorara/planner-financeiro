@@ -4,6 +4,7 @@ body {
     color: #403B3B;
 }
 
+/* SIDE MENU */
 .side_menu {
     height: 100%; 
     width: 160px;
@@ -51,15 +52,64 @@ body {
     vertical-align: middle;
 }
 
+/* AREA DE INPUT */
 .area_input {
     margin-top: 20px;
     display: flexbox;
 }
 
-input {
+.area_input input {
     border-radius: 30px;
+    height: 30px;
+    border: 2px solid #666161;
+    background-color: #F9F2ED;
+    padding-left: 12px;
+    outline: none;
+    font-size: 16px;
 }
 
+/* Compatível com Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+label {
+    font-size: 18px;
+}
+
+select,
+::picker(select) {
+    appearance: base-select;
+}
+
+select {
+    border-radius: 30px;
+    width: 140px;
+    height: 30px;
+    text-align: center;
+    padding-left: 12px;
+    border: 2px solid #666161;
+}
+
+#input_data {
+    padding-right: 12px;
+}
+
+#inputButton {
+    background-color: #666161;
+    color: #E9E3DE;
+    border-radius: 100%;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    display: inline-flex;
+    padding-top: 6px;
+}
+
+/* TABELA */
 .area_table {
     width: 95%;
     border: 2px solid;
