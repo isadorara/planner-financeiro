@@ -1,6 +1,6 @@
 body {
     background-color: #E9E3DE;
-    font-family: 'Inter';
+    font-family: 'Roboto', sans-serif;
     color: #403B3B;
 }
 
@@ -42,20 +42,35 @@ body {
     align-items: center;
 }
 
+/*AREA DE UPLOAD*/
 .area_upload {
+    display: flex;
+    align-items: center;
+    gap: 7px;
     background: none;
     width: 95%;
     height: 60px;
     border-radius: 50px;
     border: 2px solid #666161;
     color: #666161;
-    vertical-align: middle;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.area_upload i {
+    font-size: 20px;
+    padding-left: 24px;
+}
+
+.area_upload a {
+    font-size: 16px;
 }
 
 /* AREA DE INPUT */
 .area_input {
     margin-top: 20px;
-    display: flexbox;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;  
 }
 
 .area_input input {
@@ -109,6 +124,12 @@ select {
     padding-top: 6px;
 }
 
+/*AREA DE TOTAL + GRAFICO*/
+.total {
+    height: 350px;
+    align-content: center;
+}
+
 /* TABELA */
 .area_table {
     width: 95%;
@@ -118,9 +139,20 @@ select {
 }
 
 .tabela {
-    display: flexbox;
-    margin: auto;
-    font-family: 'Inter';
-    font: 32px;
-    padding: auto 300px;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.tabela th,
+.tabela td {
+    padding: 12px 16px;
+    text-align: center;
+    font-family: 'Roboto';
+}
+
+.tabela th:first-child,
+.tabela td:first-child {
+    text-align: left;
+    padding-left: 24px;
 }

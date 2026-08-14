@@ -1,4 +1,5 @@
 const tabela = document.getElementById('tableBody');
+let total = 0.0;
 
 // Lidar com arquivo csv
 import Papa from 'papaparse';
@@ -20,7 +21,7 @@ function preencherTabela() {
                 const novaLinha = `
                     <tr>
                         <td>${row.title}</td>
-                        <td>R$${row.amount}</td>
+                        <td>${row.amount}</td>
                         <td>
                             <select id="input_categoria">
                                 <option value="Alimentação">Alimentação</option>
@@ -35,6 +36,8 @@ function preencherTabela() {
                         <td>${row.date}</td>
                     </tr>
                 `;
+                
+                total = total + row.amount;
 
                 console.log('Saída cadastrada!');
                 tabela.insertAdjacentHTML('beforeend', novaLinha);
@@ -55,7 +58,7 @@ function cadastrarSaida() {
     const novaLinha = `
         <tr>
             <td>${saida.value}</td>
-            <td>R$${valor.value}</td>
+            <td>${valor.value}</td>
             <td>${categoria.value}</td>
             <td>${data.value}</td>
         </tr>
