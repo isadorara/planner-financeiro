@@ -2,11 +2,6 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css">
-
-        <!--FOnte-->
-        <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-        </style>
                 
         <!--Icones-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -39,6 +34,7 @@
                 <a>Clique para escolher ou arraste o arquivo aqui</a>
                 <!--Upload de arquivo-->
                 <input type="file" id="fileInput" accept=".csv,text/csv">
+                <button type="submit" id="fileButton" >Enviar</button>
             </div>
             <!--Área de input do usuário-->
             <div class="area_input">
@@ -74,9 +70,9 @@
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
-            <div class="total">
-                <h2 id="total">Total</h2>
-                <h3 id="val_total" class="val_total"></h3>
+            <div class="area_total">
+                <h2 id="total" class="total">Total</h2>
+                <a id="val_total" class="val_total"></a>
             </div>            
             <!--Área de tabela-->
             <div class="area_table">

@@ -10,37 +10,52 @@ function preencherTabela() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
 
+    let total = parseFloat(0);
+
     Papa.parse(file, {
         header: true,
         dynamicTyping: true,
+        skipEmptyLines: true,
         complete: (results) => {
             console.log(results.data);
             const dados = results.data;
 
             dados.forEach((row => {
-                const novaLinha = `
-                    <tr>
-                        <td>${row.title}</td>
-                        <td>${row.amount}</td>
-                        <td>
-                            <select id="input_categoria">
-                                <option value="Alimentação">Alimentação</option>
-                                <option value="Transporte">Transporte</option>
-                                <option value="Saúde">Saúde</option>
-                                <option value="Lazer">Lazer</option>
-                                <option value="Moradia">Moradia</option>
-                                <option value="Assinatura">Assinatura</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </td>
-                        <td>${row.date}</td>
-                    </tr>
-                `;
-                
-                total = total + row.amount;
+                if(!row.amount.startsWith('-')) {
+                    //Transformar row.amount em número
+                    row.amount = row.amount.replace(/\s/g, '');
+                    row.amount = row.amount.replace(/\./g, '');
+                    row.amount = row.amount.replace(/,/g, '.');
+                    row.amount = Number.parseFloat(row.amount);
+                    
+                    //Somar total
+                    total += row.amount;
+                    console.log(total.toFixed(2));
 
-                console.log('Saída cadastrada!');
-                tabela.insertAdjacentHTML('beforeend', novaLinha);
+                    const novaLinha = `
+                        <tr>
+                            <td>${row.title}</td>
+                            <td>${row.amount.toFixed(2)}</td>
+                            <td>
+                                <select id="input_categoria">
+                                    <option value="Alimentação">Alimentação</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Saúde">Saúde</option>
+                                    <option value="Lazer">Lazer</option>
+                                    <option value="Moradia">Moradia</option>
+                                    <option value="Assinatura">Assinatura</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </td>
+                            <td>${row.date}</td>
+                        </tr>
+                    `;
+                    
+                    console.log('Saída cadastrada!');
+                    tabela.insertAdjacentHTML('beforeend', novaLinha);
+
+                    document.getElementById("val_total").textContent = `R$${total}`;
+                }
             }));
         }
     });
