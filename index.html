@@ -51,6 +51,7 @@
                 <div class="input_categoria">
                     <label for="input_categoria">Categoria:</label>
                     <select id="input_categoria">
+                        <option></option>
                         <option value="Alimentação">Alimentação</option>
                         <option value="Transporte">Transporte</option>
                         <option value="Saúde">Saúde</option>
@@ -70,10 +71,21 @@
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
+            <!--Area Total-->
             <div class="area_total">
                 <h2 id="total" class="total">Total</h2>
-                <a id="val_total" class="val_total"></a>
-            </div>            
+                <a id="val_total" class="val_total">R$0.00</a>
+                <!--Grafico-->
+                <div class="grafico">
+                    <div id="cat_alimentacao"></div>
+                    <div id="cat_transporte"></div>
+                    <div id="cat_saude"></div>
+                    <div id="cat_lazer"></div>
+                    <div id="cat_moradia"></div>
+                    <div id="cat_assinatura"></div>
+                    <div id="cat_outros"></div>
+                </div>    
+            </div>        
             <!--Área de tabela-->
             <div class="area_table">
                 <table id="tabela" class="tabela">
