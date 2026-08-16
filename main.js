@@ -1,6 +1,17 @@
 const tabela = document.getElementById('tableBody');
 let total = 0.0;
 
+let val_categorias = [0, 0, 0, 0, 0, 0, 0];
+
+//Criar grafico
+function percentualCategoria() {
+    for(let i = 0; i < val_categorias.length; i++) {
+        console.log(val_categorias[i]);
+    }
+}
+
+percentualCategoria();
+
 // Lidar com arquivo csv
 import Papa from 'papaparse';
 
@@ -9,8 +20,6 @@ document.getElementById('fileButton').addEventListener('click', preencherTabela)
 function preencherTabela() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
-
-    let total = parseFloat(0);
 
     Papa.parse(file, {
         header: true,
@@ -30,7 +39,6 @@ function preencherTabela() {
                     
                     //Somar total
                     total += row.amount;
-                    console.log(total.toFixed(2));
 
                     const novaLinha = `
                         <tr>
@@ -70,15 +78,34 @@ function cadastrarSaida() {
     const categoria = document.getElementById('input_categoria');
     const data = document.getElementById('input_data');
 
+    total = Number.parseFloat(total) + Number.parseFloat(valor.value);
+
     const novaLinha = `
         <tr>
             <td>${saida.value}</td>
             <td>${valor.value}</td>
-            <td>${categoria.value}</td>
+            <td>
+                <select id="input_categoria">
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Lazer">Lazer</option>
+                    <option value="Moradia">Moradia</option>
+                    <option value="Assinatura">Assinatura</option>
+                    <option value="Outros">Outros</option>
+                </select>
+            </td>
             <td>${data.value}</td>
         </tr>
     `;
 
     console.log('Saída cadastrada!');
     tabela.insertAdjacentHTML('beforeend', novaLinha);
+
+    document.getElementById("val_total").textContent = `R$${total}`;
+
+    saida.value = '';
+    valor.value = '';
+    categoria.value = '';
+    data.value = '';
 }

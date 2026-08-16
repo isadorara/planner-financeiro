@@ -141,6 +141,7 @@ select {
 /*AREA DE TOTAL + GRAFICO*/
 .area_total {
     height: 375px;
+    width: 100%;
     align-content: center;
     justify-content: left;
 }
@@ -154,6 +155,29 @@ select {
 
 .val_total { 
     font-size: 64px; 
+}
+
+.grafico {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    margin-top: 20px;
+}
+
+#cat_alimentacao{
+    border-radius: 20px 0 0 20px;
+    background-color: #E9A158;
+}
+
+#cat_transporte{ background-color: #7191B5; }
+#cat_saude{ background-color: #D97E80; }
+#cat_lazer{ background-color: #7FBA8A; }
+#cat_moradia{ background-color: #BA7FA3; }
+#cat_assinatura{ background-color: #7acccc; }
+
+#cat_outros{
+    border-radius: 0 20px 20px 0;
+    background-color: #a3a0a0;
 }
 
 /* TABELA */
