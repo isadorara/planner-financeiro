@@ -1,111 +1,132 @@
-const tabela = document.getElementById('tableBody');
-let total = 0.0;
-
-let val_categorias = [0, 0, 0, 0, 0, 0, 0];
-
-//Criar grafico
-function percentualCategoria() {
-    for(let i = 0; i < val_categorias.length; i++) {
-        console.log(val_categorias[i]);
-    }
-}
-
-percentualCategoria();
-
-// Lidar com arquivo csv
 import Papa from 'papaparse';
 
-document.getElementById('fileButton').addEventListener('click', preencherTabela);
+let gastos = [];
 
-function preencherTabela() {
+// Referências do DOM
+const tabelaBody = document.getElementById('tableBody');
+const valTotalEl = document.getElementById('val_total');
+
+// Categorias no grafico
+const CATEGORIA_PARA_ID = {
+    'Alimentação': 'cat_alimentacao',
+    'Transporte': 'cat_transporte',
+    'Saúde': 'cat_saude',
+    'Lazer': 'cat_lazer',
+    'Moradia': 'cat_moradia',
+    'Assinatura': 'cat_assinatura',
+    'Outros': 'cat_outros'
+};
+
+document.getElementById('fileButton').addEventListener('click', handleFileUpload);
+document.getElementById('inputButton').addEventListener('click', handleManualInput);
+
+// Entrada por CSV
+function handleFileUpload() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
+    if (!file) return;
 
     Papa.parse(file, {
         header: true,
         dynamicTyping: true,
         skipEmptyLines: true,
         complete: (results) => {
-            console.log(results.data);
-            const dados = results.data;
-
-            dados.forEach((row => {
-                if(!row.amount.startsWith('-')) {
-                    //Transformar row.amount em número
-                    row.amount = row.amount.replace(/\s/g, '');
-                    row.amount = row.amount.replace(/\./g, '');
-                    row.amount = row.amount.replace(/,/g, '.');
-                    row.amount = Number.parseFloat(row.amount);
-                    
-                    //Somar total
-                    total += row.amount;
-
-                    const novaLinha = `
-                        <tr>
-                            <td>${row.title}</td>
-                            <td>${row.amount.toFixed(2)}</td>
-                            <td>
-                                <select id="input_categoria">
-                                    <option value="Alimentação">Alimentação</option>
-                                    <option value="Transporte">Transporte</option>
-                                    <option value="Saúde">Saúde</option>
-                                    <option value="Lazer">Lazer</option>
-                                    <option value="Moradia">Moradia</option>
-                                    <option value="Assinatura">Assinatura</option>
-                                    <option value="Outros">Outros</option>
-                                </select>
-                            </td>
-                            <td>${row.date}</td>
-                        </tr>
-                    `;
-                    
-                    console.log('Saída cadastrada!');
-                    tabela.insertAdjacentHTML('beforeend', novaLinha);
-
-                    document.getElementById("val_total").textContent = `R$${total}`;
-                }
-            }));
+            results.data.forEach(processarLinhaCsv);
         }
+    })
+};
+
+function processarLinhaCsv(row) {
+    if (!row.amount || row.amount.startsWith('-')) return;
+ 
+    adicionarGasto({
+        nome: row.title,
+        valor: parseValorBR(row.amount),
+        categoria: row.categoria || 'Outros',
+        data: row.date
     });
 }
 
-document.getElementById('inputButton').addEventListener('click', cadastrarSaida);
+function parseValorBR(valorTexto) {
+    const limpo = valorTexto
+        .replace(/\s/g, '')
+        .replace(/\./g, '')
+        .replace(/,/g, '.');
+    return Number.parseFloat(limpo);
+}
 
-// Lidar com input do usuário
-function cadastrarSaida() {
+// Input do usuário
+function handleManualInput() {
     const saida = document.getElementById('input_saida');
     const valor = document.getElementById('input_valor');
     const categoria = document.getElementById('input_categoria');
     const data = document.getElementById('input_data');
 
-    total = Number.parseFloat(total) + Number.parseFloat(valor.value);
+    if (!saida.value || !valor.value || !categoria.value || !data.value) {
+        alert('Preencha todos os campos antes de enviar.');
+        return;
+    }
 
-    const novaLinha = `
+    adicionarGasto({
+        nome: saida.value,
+        valor: Number.parseFloat(valor.value),
+        categoria: categoria.value,
+        data: data.value
+    });
+
+    limparFormulario(saida, valor, categoria, data);
+}
+ 
+function limparFormulario(...campos) {
+    campos.forEach(campo => campo.value = '');
+}
+
+// Adicionar gasto
+function adicionarGasto(gasto) {
+    gastos.push(gasto);
+    renderizarLinha(gasto);
+    atualizarTotal();
+    atualizarGrafico();
+}
+
+function renderizarLinha(gasto) {
+    const linha = `
         <tr>
-            <td>${saida.value}</td>
-            <td>${valor.value}</td>
-            <td>
-                <select id="input_categoria">
-                    <option value="Alimentação">Alimentação</option>
-                    <option value="Transporte">Transporte</option>
-                    <option value="Saúde">Saúde</option>
-                    <option value="Lazer">Lazer</option>
-                    <option value="Moradia">Moradia</option>
-                    <option value="Assinatura">Assinatura</option>
-                    <option value="Outros">Outros</option>
-                </select>
-            </td>
-            <td>${data.value}</td>
+            <td>${gasto.nome}</td>
+            <td>${gasto.valor.toFixed(2)}</td>
+            <td>${gasto.categoria}</td>
+            <td>${gasto.data}</td>
         </tr>
     `;
+    tabelaBody.insertAdjacentHTML('beforeend', linha);
+}
 
-    console.log('Saída cadastrada!');
-    tabela.insertAdjacentHTML('beforeend', novaLinha);
+function calcularTotal() {
+    return gastos.reduce((soma, gasto) => soma + gasto.valor, 0);
+}
 
-    document.getElementById("val_total").textContent = `R$${total}`;
+function calcularTotalPorCategoria() {
+    return gastos.reduce((totais, gasto) => {
+        totais[gasto.categoria] = (totais[gasto.categoria] || 0) + gasto.valor;
+        return totais;
+    }, {});
+}
+ 
+function atualizarTotal() {
+    valTotalEl.textContent = `R$${calcularTotal().toFixed(2)}`;
+}
 
-    saida.value = '';
-    valor.value = '';
-    categoria.value = '';
-    data.value = '';
+function atualizarGrafico() {
+    const total = calcularTotal();
+    if (total == 0) return;
+
+    const totais = calcularTotalPorCategoria();
+
+    for(const categoria in CATEGORIA_PARA_ID) {
+        const valorCategoria = totais[categoria] || 0;
+        const porcentagem = (valorCategoria/total) * 100;
+
+        const div = document.getElementById(CATEGORIA_PARA_ID[categoria]);
+        div.style.width = `${porcentagem}%`;
+    }
 }
